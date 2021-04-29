@@ -292,7 +292,7 @@ FROM S1AP-Containers
 	id-TraceCollectionEntityIPAddress,
 	maxnoofTAIs,
 maxNrOfErrors,
-maxNrOfE-RABs,
+maxnoofE-RABs,
 maxNrOfTE-RABs,
 maxNrOfIndividualS1ConnectionsToReset,
 maxNrOfIndividualS1GroupConnectionsToReset,
@@ -372,9 +372,9 @@ FROM S1AP-Constants;
 --
 -- **************************************************************
 
-E-RAB-IE-ContainerList			{ S1AP-PROTOCOL-IES      : IEsSetParam }	::= ProtocolIE-ContainerList     { 1, maxNrOfE-RABs,   {IEsSetParam} }
-E-RAB-IE-ContainerPairList		{ S1AP-PROTOCOL-IES-PAIR : IEsSetParam }	::= ProtocolIE-ContainerPairList { 1, maxNrOfE-RABs,   {IEsSetParam} }
-ProtocolError-IE-ContainerList	{ S1AP-PROTOCOL-IES      : IEsSetParam }	::= ProtocolIE-ContainerList     { 1, maxNrOfE-RABs,   {IEsSetParam} }
+E-RAB-IE-ContainerList			{ S1AP-PROTOCOL-IES      : IEsSetParam }	::= ProtocolIE-ContainerList     { 1, maxnoofE-RABs,   {IEsSetParam} }
+E-RAB-IE-ContainerPairList		{ S1AP-PROTOCOL-IES-PAIR : IEsSetParam }	::= ProtocolIE-ContainerPairList { 1, maxnoofE-RABs,   {IEsSetParam} }
+ProtocolError-IE-ContainerList	{ S1AP-PROTOCOL-IES      : IEsSetParam }	::= ProtocolIE-ContainerList     { 1, maxnoofE-RABs,   {IEsSetParam} }
 
 -- **************************************************************
 --
@@ -818,7 +818,7 @@ E-RABSetupRequestIEs S1AP-PROTOCOL-IES ::= {
 	...
 }
 
-E-RABToBeSetupListBearerSUReq ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABToBeSetupItemBearerSUReqIEs} }
+E-RABToBeSetupListBearerSUReq ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABToBeSetupItemBearerSUReqIEs} }
 
 E-RABToBeSetupItemBearerSUReqIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABToBeSetupItemBearerSUReq	 CRITICALITY reject 	TYPE E-RABToBeSetupItemBearerSUReq 	PRESENCE mandatory },
@@ -862,7 +862,7 @@ E-RABSetupResponseIEs S1AP-PROTOCOL-IES ::= {
 }
 
 
-E-RABSetupListBearerSURes ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABSetupItemBearerSUResIEs} }
+E-RABSetupListBearerSURes ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABSetupItemBearerSUResIEs} }
 
 E-RABSetupItemBearerSUResIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABSetupItemBearerSURes	 CRITICALITY ignore 	TYPE E-RABSetupItemBearerSURes 	PRESENCE mandatory },
@@ -909,7 +909,7 @@ E-RABModifyRequestIEs S1AP-PROTOCOL-IES ::= {
 	...
 }
 
-E-RABToBeModifiedListBearerModReq ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABToBeModifiedItemBearerModReqIEs} }
+E-RABToBeModifiedListBearerModReq ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABToBeModifiedItemBearerModReqIEs} }
 
 E-RABToBeModifiedItemBearerModReqIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABToBeModifiedItemBearerModReq	 CRITICALITY reject 	TYPE E-RABToBeModifiedItemBearerModReq 	PRESENCE mandatory },
@@ -952,7 +952,7 @@ E-RABModifyResponseIEs S1AP-PROTOCOL-IES ::= {
 }
 
 
-E-RABModifyListBearerModRes ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABModifyItemBearerModResIEs} }
+E-RABModifyListBearerModRes ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABModifyItemBearerModResIEs} }
 
 E-RABModifyItemBearerModResIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABModifyItemBearerModRes	 CRITICALITY ignore 	TYPE E-RABModifyItemBearerModRes 	PRESENCE mandatory },
@@ -1021,7 +1021,7 @@ E-RABReleaseResponseIEs S1AP-PROTOCOL-IES ::= {
 }
 
 
-E-RABReleaseListBearerRelComp ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABReleaseItemBearerRelCompIEs} }
+E-RABReleaseListBearerRelComp ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABReleaseItemBearerRelCompIEs} }
 
 E-RABReleaseItemBearerRelCompIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABReleaseItemBearerRelComp	 CRITICALITY ignore 	TYPE E-RABReleaseItemBearerRelComp 	PRESENCE mandatory },
@@ -1102,7 +1102,7 @@ InitialContextSetupRequestIEs S1AP-PROTOCOL-IES ::= {
 
 
 
-E-RABToBeSetupListCtxtSUReq ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABToBeSetupItemCtxtSUReqIEs} }
+E-RABToBeSetupListCtxtSUReq ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABToBeSetupItemCtxtSUReqIEs} }
 
 E-RABToBeSetupItemCtxtSUReqIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABToBeSetupItemCtxtSUReq	 CRITICALITY reject 	TYPE E-RABToBeSetupItemCtxtSUReq 	PRESENCE mandatory },
@@ -1146,7 +1146,7 @@ InitialContextSetupResponseIEs S1AP-PROTOCOL-IES ::= {
 }
 
 
-E-RABSetupListCtxtSURes ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABSetupItemCtxtSUResIEs} }
+E-RABSetupListCtxtSURes ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABSetupItemCtxtSUResIEs} }
 
 E-RABSetupItemCtxtSUResIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABSetupItemCtxtSURes	 CRITICALITY ignore 	TYPE E-RABSetupItemCtxtSURes 	PRESENCE mandatory },

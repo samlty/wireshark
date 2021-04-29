@@ -17,7 +17,6 @@ set( EXPORT_FILES
 
 set( EXT_ASN_FILE_LIST
 )
-
 set( ASN_FILE_LIST
 	S1AP-CommonDataTypes.asn
 	S1AP-Constants.asn
@@ -25,7 +24,7 @@ set( ASN_FILE_LIST
 	S1AP-IEs.asn
 	S1AP-PDU-Contents.asn
 	S1AP-PDU-Descriptions.asn
-	S1AP-SonTransfer-IEs.asn
+	# S1AP-SonTransfer-IEs.asn
 )
 
 set( EXTRA_DIST

@@ -185,7 +185,7 @@ MAX_VAL = asn1_param_get_integer(%(ACTX)s,"upperBound")
 #  asn1_stack_frame_check(actx, "ProtocolIE-ContainerPairList", ProtocolIE_ContainerPairList_pars);
 # END
 
-#E-RAB-IE-ContainerList                  { S1AP-PROTOCOL-IES      : IEsSetParam } ::= ProtocolIE-ContainerList     { 1, maxnoofE-RABs,   {IEsSetParam} }
+#E-RAB-IE-ContainerList                  { S1AP-PROTOCOL-IES      : IEsSetParam } ::= ProtocolIE-ContainerList     { 1, maxnoofE_RABs,   {IEsSetParam} }
 #.FN_BODY E-RAB-IE-ContainerList
   asn1_stack_frame_push(%(ACTX)s, "ProtocolIE-ContainerList");
   asn1_param_push_integer(%(ACTX)s, 1);
@@ -194,7 +194,7 @@ MAX_VAL = asn1_param_get_integer(%(ACTX)s,"upperBound")
   asn1_stack_frame_pop(%(ACTX)s, "ProtocolIE-ContainerList");
 #.END
 
-# E-RAB-IE-ContainerPairList              { S1AP-PROTOCOL-IES-PAIR : IEsSetParam } ::= ProtocolIE-ContainerPairList { 1, maxnoofE-RABs,   {IEsSetParam} }
+# E-RAB-IE-ContainerPairList              { S1AP-PROTOCOL-IES-PAIR : IEsSetParam } ::= ProtocolIE-ContainerPairList { 1, maxnoofE_RABs,   {IEsSetParam} }
 # Currently not used
 # FN_BODY SAEB-IE-ContainerPairList
 #  asn1_stack_frame_push(%(ACTX)s, "ProtocolIE-ContainerPairList");
@@ -205,7 +205,7 @@ MAX_VAL = asn1_param_get_integer(%(ACTX)s,"upperBound")
 # END
 
 # Currently not used
-# ProtocolError-IE-ContainerList        { S1AP-PROTOCOL-IES      : IEsSetParam } ::= ProtocolIE-ContainerList     { 1, maxnoofE-RABs,   {IEsSetParam} }
+# ProtocolError-IE-ContainerList        { S1AP-PROTOCOL-IES      : IEsSetParam } ::= ProtocolIE-ContainerList     { 1, maxnoofE_RABs,   {IEsSetParam} }
 # FN_BODY ProtocolError-IE-ContainerList
 #  asn1_stack_frame_push(%(ACTX)s, "ProtocolIE-ContainerList");
 #  asn1_param_push_integer(%(ACTX)s, 1);
@@ -417,8 +417,6 @@ Port-Number TYPE = FT_UINT16 DISPLAY = BASE_DEC
       utrantolte,
       gerantolte,
       ...
-      eps_to_5gs,
-      fivegs_to_eps
       } */
       case intralte:
       /* intralte
@@ -429,9 +427,6 @@ Port-Number TYPE = FT_UINT16 DISPLAY = BASE_DEC
       /* utrantolte */
       case gerantolte:
       /* gerantolte */
-      case fivegs_to_eps:
-      /* fivegs_to_eps */
-      dissect_s1ap_SourceeNB_ToTargeteNB_TransparentContainer_PDU(parameter_tvb, actx->pinfo, subtree, NULL);
       break;
       case ltetoutran:
       /* ltetoutran
@@ -452,10 +447,6 @@ Port-Number TYPE = FT_UINT16 DISPLAY = BASE_DEC
         bssmap_old_bss_to_new_bss_info(parameter_tvb, subtree, actx->pinfo);
       else
         de_bssgp_source_BSS_to_target_BSS_transp_cont(parameter_tvb, subtree, actx->pinfo, 0, tvb_reported_length(parameter_tvb), NULL, 0);
-      break;
-      case eps_to_5gs:
-      /* eps_to_5gs */
-      dissect_ngap_SourceNGRANNode_ToTargetNGRANNode_TransparentContainer_PDU(parameter_tvb, actx->pinfo, subtree, NULL);
       break;
       default:
       break;
@@ -491,8 +482,6 @@ Port-Number TYPE = FT_UINT16 DISPLAY = BASE_DEC
       utrantolte,
       gerantolte,
       ...
-      eps_to_5gs,
-      fivegs_to_eps
       } */
       case intralte:
       /* intralte
@@ -503,9 +492,6 @@ Port-Number TYPE = FT_UINT16 DISPLAY = BASE_DEC
       /* utrantolte */
       case gerantolte:
       /* gerantolte */
-      case fivegs_to_eps:
-      /* fivegs_to_eps */
-      dissect_s1ap_TargeteNB_ToSourceeNB_TransparentContainer_PDU(parameter_tvb, actx->pinfo, subtree, NULL);
       break;
       case ltetoutran:
       /* ltetoutran
@@ -520,10 +506,6 @@ Port-Number TYPE = FT_UINT16 DISPLAY = BASE_DEC
         Transparent Container 48.018
       */
       de_bssgp_target_BSS_to_source_BSS_transp_cont(parameter_tvb, subtree, actx->pinfo, 0, tvb_reported_length(parameter_tvb), NULL, 0);
-      break;
-      case eps_to_5gs:
-      /* eps_to_5gs */
-      dissect_ngap_TargetNGRANNode_ToSourceNGRANNode_TransparentContainer_PDU(parameter_tvb, actx->pinfo, subtree, NULL);
       break;
       default:
       break;
@@ -646,12 +628,7 @@ Port-Number TYPE = FT_UINT16 DISPLAY = BASE_DEC
     struct s1ap_private_data *s1ap_data = s1ap_get_private_data(actx->pinfo);
     volatile dissector_handle_t handle;
     subtree = proto_item_add_subtree(actx->created_item, ett_s1ap_UERadioCapability);
-    if (s1ap_data->protocol_ie_id == id_UERadioCapability_NR_Format) {
-      handle = nr_rrc_ue_radio_access_cap_info_handle;
-    } else if ((s1ap_is_nbiot_ue(actx->pinfo) && (g_s1ap_dissect_lte_container_as == S1AP_LTE_CONTAINER_AUTOMATIC)) ||
-        (g_s1ap_dissect_lte_container_as == S1AP_LTE_CONTAINER_NBIOT)) {
-      handle = lte_rrc_ue_radio_access_cap_info_nb_handle;
-    } else {
+    {
       handle = lte_rrc_ue_radio_access_cap_info_handle;
     }
     if (handle) {
@@ -1535,6 +1512,24 @@ id-SecondaryRATDataUsageReport          ProcedureCode
 id-HandoverSuccess                      ProcedureCode
 id-eNBEarlyStatusTransfer               ProcedureCode
 id-MMEEarlyStatusTransfer               ProcedureCode
+id-GroupCallContextSetup ProcedureCode
+id-GroupCallContextModification ProcedureCode
+id-GroupCallContextRelease ProcedureCode 
+id-GroupTE-RABSetup ProcedureCode
+id-GroupTE-RABModify ProcedureCode
+id-GroupTE-RABRelease ProcedureCode
+id-GroupTE-RABReleaseIndication ProcedureCode
+id-GroupCallContextReleaseIndication ProcedureCode 
+id-InstantGroupCallConfigNotify ProcedureCode 
+id-GroupCallContextExpansion ProcedureCode 
+id-TrunkingIndividualPaging ProcedureCode 
+id-GroupDownlinkNASTransport ProcedureCode 
+id-TrunkingErrorIndication ProcedureCode 
+id-GroupReset ProcedureCode 
+id-TrunkingMessageTransport ProcedureCode 
+id-TrunkingServingCellUpdateIndication ProcedureCode 
+id-eNBGroupCallConfigurationTransfer ProcedureCode 
+id-MMEGroupCallConfigurationTransfer ProcedureCode 
 
 # ProtocolIE-ID
 id-MME-UE-S1AP-ID                                   ProtocolIE-ID
@@ -1671,13 +1666,9 @@ id-Routing-ID                                       ProtocolIE-ID
 id-Time-Synchronisation-Info                        ProtocolIE-ID
 id-PS-ServiceNotAvailable                           ProtocolIE-ID
 id-PagingPriority                                   ProtocolIE-ID
-id-x2TNLConfigurationInfo                           ProtocolIE-ID
 id-eNBX2ExtendedTransportLayerAddresses             ProtocolIE-ID
 id-GUMMEIList                                       ProtocolIE-ID
-id-GW-TransportLayerAddress                         ProtocolIE-ID
 id-Correlation-ID                                   ProtocolIE-ID
-id-SourceMME-GUMMEI                                 ProtocolIE-ID
-id-MME-UE-S1AP-ID-2                                 ProtocolIE-ID
 id-RegisteredLAI                                    ProtocolIE-ID
 id-RelayNode-Indicator                              ProtocolIE-ID
 id-TrafficLoadReductionIndication                   ProtocolIE-ID
@@ -1687,7 +1678,6 @@ id-GWContextReleaseIndication                       ProtocolIE-ID
 id-ManagementBasedMDTAllowed                        ProtocolIE-ID
 id-PrivacyIndicator                                 ProtocolIE-ID
 id-Time-UE-StayedInCell-EnhancedGranularity         ProtocolIE-ID
-id-HO-Cause                                         ProtocolIE-ID
 id-VoiceSupportMatchIndicator                       ProtocolIE-ID
 id-GUMMEIType                                       ProtocolIE-ID
 id-M3Configuration                                  ProtocolIE-ID
@@ -1703,7 +1693,6 @@ id-DLCOUNTValueExtended                             ProtocolIE-ID
 id-ReceiveStatusOfULPDCPSDUsExtended                ProtocolIE-ID
 id-ECGIListForRestart                               ProtocolIE-ID
 id-SIPTO-Correlation-ID                             ProtocolIE-ID
-id-SIPTO-L-GW-TransportLayerAddress                 ProtocolIE-ID
 id-TransportInformation                             ProtocolIE-ID
 id-LHN-ID                                           ProtocolIE-ID
 id-AdditionalCSFallbackIndicator                    ProtocolIE-ID
@@ -1724,12 +1713,10 @@ id-E-RABNotToBeModifiedListBearerModInd             ProtocolIE-ID
 id-E-RABNotToBeModifiedItemBearerModInd             ProtocolIE-ID
 id-E-RABModifyListBearerModConf                     ProtocolIE-ID
 id-E-RABModifyItemBearerModConf                     ProtocolIE-ID
-id-E-RABFailedToModifyListBearerModConf             ProtocolIE-ID
 id-SON-Information-Report                           ProtocolIE-ID
 id-Muting-Availability-Indication                   ProtocolIE-ID
 id-Muting-Pattern-Information                       ProtocolIE-ID
 id-Synchronisation-Information                      ProtocolIE-ID
-id-E-RABToBeReleasedListBearerModConf               ProtocolIE-ID
 id-AssistanceDataForPaging                          ProtocolIE-ID
 id-CellIdentifierAndCELevelForCECapableUEs          ProtocolIE-ID
 id-InformationOnRecommendedCellsAndENBsForPaging    ProtocolIE-ID
@@ -1742,7 +1729,6 @@ id-ReceiveStatusOfULPDCPSDUsPDCP-SNlength18         ProtocolIE-ID
 id-M6Configuration                                  ProtocolIE-ID
 id-M7Configuration                                  ProtocolIE-ID
 id-PWSfailedECGIList                                ProtocolIE-ID
-id-MME-Group-ID                                     ProtocolIE-ID
 id-Additional-GUTI                                  ProtocolIE-ID
 id-S1-Message                                       ProtocolIE-ID
 id-CSGMembershipInfo                                ProtocolIE-ID
@@ -1763,14 +1749,12 @@ id-UEUserPlaneCIoTSupportIndicator                  ProtocolIE-ID
 id-CE-mode-B-SupportIndicator                       ProtocolIE-ID
 id-SRVCCOperationNotPossible                        ProtocolIE-ID
 id-NB-IoT-UEIdentityIndexValue                      ProtocolIE-ID
-id-RRC-Resume-Cause                                 ProtocolIE-ID
 id-DCN-ID                                           ProtocolIE-ID
 id-ServedDCNs                                       ProtocolIE-ID
 id-UESidelinkAggregateMaximumBitrate                ProtocolIE-ID
 id-DLNASPDUDeliveryAckRequest                       ProtocolIE-ID
 id-Coverage-Level                                   ProtocolIE-ID
 id-EnhancedCoverageRestricted                       ProtocolIE-ID
-id-UE-Level-QoS-Parameters                          ProtocolIE-ID
 id-DL-CP-SecurityInformation                        ProtocolIE-ID
 id-UL-CP-SecurityInformation                        ProtocolIE-ID
 id-extended-e-RAB-MaximumBitrateDL                  ProtocolIE-ID
@@ -1806,7 +1790,6 @@ id-WLANMeasurementConfiguration                     ProtocolIE-ID
 id-WarningAreaCoordinates                           ProtocolIE-ID
 id-NRrestrictionin5GS                               ProtocolIE-ID
 id-PSCellInformation                                ProtocolIE-ID
-id-LastNG-RANPLMNIdentity                           ProtocolIE-ID
 id-ConnectedengNBList                               ProtocolIE-ID
 id-ConnectedengNBToAddList                          ProtocolIE-ID
 id-ConnectedengNBToRemoveList                       ProtocolIE-ID
@@ -1831,7 +1814,6 @@ id-IntersystemMeasurementConfiguration              ProtocolIE-ID
 id-SourceNodeID                                     ProtocolIE-ID
 id-NB-IoT-RLF-Report-Container                      ProtocolIE-ID
 id-UERadioCapabilityID                              ProtocolIE-ID
-id-UERadioCapability-NR-Format                      ProtocolIE-ID
 id-MDTConfigurationNR                               ProtocolIE-ID
 id-DAPSRequestInfo                                  ProtocolIE-ID
 id-DAPSResponseInfoList                             ProtocolIE-ID
@@ -1842,6 +1824,63 @@ id-Bearers-SubjectToEarlyStatusTransfer-Item        ProtocolIE-ID
 id-WUS-Assistance-Information                       ProtocolIE-ID
 id-NB-IoT-PagingDRX                                 ProtocolIE-ID
 
+
+id-GroupIdentity ProtocolIE-ID 
+id-MME-Group-S1AP-ID ProtocolIE-ID 
+id-CallPriority ProtocolIE-ID 
+id-CallSequence ProtocolIE-ID 
+id-GroupAggregateMaximumBitrate ProtocolIE-ID 
+id-TE-RABToBeSetupListGroupCtxtSUReq ProtocolIE-ID  
+id-TE-RABToBeSetupItemGroupCtxtSUReq ProtocolIE-ID 
+id-GroupCallAreaGroupCtxtSUReq ProtocolIE-ID 
+id-GroupCallSecurityInformation ProtocolIE-ID 
+id-eNB-Group-S1AP-ID ProtocolIE-ID  
+id-TE-RABSetupListGroupCtxtSURes ProtocolIE-ID 
+id-TE-RABSetupItemGroupCtxtSURes ProtocolIE-ID 
+id-TE-RABFailedToSetupListGroupCtxtSURes ProtocolIE-ID 
+id-GroupCallAreaGroupCtxtModReq ProtocolIE-ID 
+id-TAIListItemGroupServiceArea ProtocolIE-ID 
+id-CellListItemGroupServiceArea ProtocolIE-ID 
+id-Group-S1AP-IDs ProtocolIE-ID 
+id-ListOfTargetTAIsTrunkingIndividualPaging ProtocolIE-ID 
+id-ListOfTargetTAIsItemTrunkingIndividualPaging ProtocolIE-ID 
+id-NAS-PDUType ProtocolIE-ID 
+id-GroupResetType ProtocolIE-ID 
+id-Group-associatedLogicalS1-ConnectionItemGroupReset ProtocolIE-ID 
+id-Group-associatedLogicalS1-ConnectionListGroupResetAck ProtocolIE-ID 
+id-Group-associatedLogicalS1-ConnectionItemGroupResetAck ProtocolIE-ID 
+id-TE-RABToBeSetupListGroupBearerSUReq ProtocolIE-ID 
+id-TE-RABToBeSetupItemGroupBearerSUReq ProtocolIE-ID 
+id-MessageServiceArea ProtocolIE-ID 
+id-TE-RABSetupListGroupBearerSURes ProtocolIE-ID 
+id-TE-RABSetupItemGroupBearerSURes ProtocolIE-ID 
+id-TE-RABFailedToSetupListGroupBearerSURes ProtocolIE-ID 
+id-TE-RABToBeModifiedListGroupBearerModReq ProtocolIE-ID 
+id-TE-RABToBeModifiedItemGroupBearerModReq ProtocolIE-ID 
+id-TE-RABModifyListGroupBearerModRes ProtocolIE-ID 
+id-TE-RABModifyItemGroupBearerModRes ProtocolIE-ID 
+id-TE-RABFailedToModifyListGroupBearerModRes ProtocolIE-ID 
+id-TE-RABToBeReleasedListGroupBearerRelCmd ProtocolIE-ID 
+id-TE-RABToBeReleasedItemGroupBearerRelCmd ProtocolIE-ID 
+id-TE-RABReleaseListGroupBearerRelRes ProtocolIE-ID 
+id-TE-RABReleaseItemGroupBearerRelRes ProtocolIE-ID 
+id-TE-RABFailedToReleaseListGroupBearerRelRes ProtocolIE-ID 
+id-TE-RABReleasedListGroupBearerRelInd ProtocolIE-ID 
+id-TrunkingUserIndication ProtocolIE-ID 
+id-PLMNIdentity ProtocolIE-ID 
+id-TargetE-UTRAN-CGI ProtocolIE-ID 
+id-TE-RABItem ProtocolIE-ID 
+id-TargeteNB-List ProtocolIE-ID 
+id-TargeteNB-Item ProtocolIE-ID 
+id-SourceeNB-List ProtocolIE-ID 
+id-NeedResponse ProtocolIE-ID 
+id-GroupConfigurationContainer ProtocolIE-ID 
+id-GroupConfigurationContainerItem ProtocolIE-ID 
+id-AddModGroupCallConfigurationItem ProtocolIE-ID 
+id-ReleaseGroupCallConfigurationItem ProtocolIE-ID 
+id-AMROverPDCPCapablityIndicator ProtocolIE-ID 
+id-SourceeNB-Item ProtocolIE-ID 
+id-AMROverPDCPIndicator ProtocolIE-ID 
 #.END
 
 #.REGISTER
@@ -1978,9 +2017,6 @@ Routing-ID                              N s1ap.ies id-Routing-ID
 PS-ServiceNotAvailable                  N s1ap.ies id-PS-ServiceNotAvailable
 PagingPriority                          N s1ap.ies id-PagingPriority
 GUMMEIList                              N s1ap.ies id-GUMMEIList
-TransportLayerAddress                   N s1ap.ies id-GW-TransportLayerAddress
-GUMMEI                                  N s1ap.ies id-SourceMME-GUMMEI
-MME-UE-S1AP-ID                          N s1ap.ies id-MME-UE-S1AP-ID-2
 LAI                                     N s1ap.ies id-RegisteredLAI
 RelayNode-Indicator                     N s1ap.ies id-RelayNode-Indicator
 TrafficLoadReductionIndication          N s1ap.ies id-TrafficLoadReductionIndication
@@ -1993,7 +2029,6 @@ GUMMEIType                              N s1ap.ies id-GUMMEIType
 TunnelInformation                       N s1ap.ies id-Tunnel-Information-for-BBF
 MDTPLMNList                             N s1ap.ies id-ManagementBasedMDTPLMNList
 ECGIListForRestart                      N s1ap.ies id-ECGIListForRestart
-TransportLayerAddress                   N s1ap.ies id-SIPTO-L-GW-TransportLayerAddress
 LHN-ID                                  N s1ap.ies id-LHN-ID
 AdditionalCSFallbackIndicator           N s1ap.ies id-AdditionalCSFallbackIndicator
 TAIListForRestart                       N s1ap.ies id-TAIListForRestart
@@ -2009,16 +2044,13 @@ E-RABNotToBeModifiedListBearerModInd    N s1ap.ies id-E-RABNotToBeModifiedListBe
 E-RABNotToBeModifiedItemBearerModInd    N s1ap.ies id-E-RABNotToBeModifiedItemBearerModInd
 E-RABModifyListBearerModConf            N s1ap.ies id-E-RABModifyListBearerModConf
 E-RABModifyItemBearerModConf            N s1ap.ies id-E-RABModifyItemBearerModConf
-E-RABList                               N s1ap.ies id-E-RABFailedToModifyListBearerModConf
 SONInformationReport                    N s1ap.ies id-SON-Information-Report
-E-RABList                               N s1ap.ies id-E-RABToBeReleasedListBearerModConf
 AssistanceDataForPaging                         N s1ap.ies id-AssistanceDataForPaging
 CellIdentifierAndCELevelForCECapableUEs         N s1ap.ies id-CellIdentifierAndCELevelForCECapableUEs
 InformationOnRecommendedCellsAndENBsForPaging   N s1ap.ies id-InformationOnRecommendedCellsAndENBsForPaging
 RecommendedCellItem                             N s1ap.ies id-RecommendedCellItem
 RecommendedENBItem                              N s1ap.ies id-RecommendedENBItem
 PWSfailedECGIList                               N s1ap.ies id-PWSfailedECGIList
-MME-Group-ID                                    N s1ap.ies id-MME-Group-ID
 Additional-GUTI                                 N s1ap.ies id-Additional-GUTI
 S1-Message                                      N s1ap.ies id-S1-Message
 CSGMembershipInfo                               N s1ap.ies id-CSGMembershipInfo
@@ -2036,7 +2068,6 @@ UEUserPlaneCIoTSupportIndicator                 N s1ap.ies id-UEUserPlaneCIoTSup
 CE-mode-B-SupportIndicator                      N s1ap.ies id-CE-mode-B-SupportIndicator
 SRVCCOperationNotPossible                       N s1ap.ies id-SRVCCOperationNotPossible
 NB-IoT-UEIdentityIndexValue                     N s1ap.ies id-NB-IoT-UEIdentityIndexValue
-RRC-Establishment-Cause                         N s1ap.ies id-RRC-Resume-Cause
 V2XServicesAuthorized                           N s1ap.ies id-V2XServicesAuthorized
 UESidelinkAggregateMaximumBitrate               N s1ap.ies id-UESidelinkAggregateMaximumBitrate
 EnhancedCoverageRestricted                      N s1ap.ies id-EnhancedCoverageRestricted
@@ -2045,7 +2076,6 @@ DCN-ID                                          N s1ap.ies id-DCN-ID
 Coverage-Level                                  N s1ap.ies id-Coverage-Level
 ServedDCNs                                      N s1ap.ies id-ServedDCNs
 DL-CP-SecurityInformation                       N s1ap.ies id-DL-CP-SecurityInformation
-E-RABLevelQoSParameters                         N s1ap.ies id-UE-Level-QoS-Parameters
 UL-CP-SecurityInformation                       N s1ap.ies id-UL-CP-SecurityInformation
 E-RABUsageReportItem                            N s1ap.ies id-E-RABUsageReportItem
 SecondaryRATDataUsageReportItem                 N s1ap.ies id-SecondaryRATDataUsageReportItem
@@ -2082,13 +2112,17 @@ PC5QoSParameters                                N s1ap.ies id-PC5QoSParameters
 IntersystemSONConfigurationTransfer             N s1ap.ies id-IntersystemSONConfigurationTransferMCT
 IntersystemSONConfigurationTransfer             N s1ap.ies id-IntersystemSONConfigurationTransferECT
 UERadioCapabilityID                             N s1ap.ies id-UERadioCapabilityID
-UERadioCapability                               N s1ap.ies id-UERadioCapability-NR-Format
 DAPSResponseInfoItem                            N s1ap.ies id-DAPSResponseInfoItem
 NotifySourceeNB                                 N s1ap.ies id-NotifySourceeNB
 ENB-EarlyStatusTransfer-TransparentContainer    N s1ap.ies id-eNB-EarlyStatusTransfer-TransparentContainer
 Bearers-SubjectToEarlyStatusTransfer-Item       N s1ap.ies id-Bearers-SubjectToEarlyStatusTransfer-Item
 WUS-Assistance-Information                      N s1ap.ies id-WUS-Assistance-Information
 NB-IoT-PagingDRX                                N s1ap.ies id-NB-IoT-PagingDRX
+
+
+
+
+
 
 #S1AP-PROTOCOL-IES-PAIR
 #RAB-SetupOrModifyItemFirst             N s1ap.ies.pair.first id-RAB-SetupOrModifyItem
@@ -2099,12 +2133,10 @@ NB-IoT-PagingDRX                                N s1ap.ies id-NB-IoT-PagingDRX
 #Alt-RAB-Parameter-ExtendedGuaranteedBitrateInf N s1ap.extension id-Alt-RAB-Parameter-ExtendedGuaranteedBitrateInf
 Data-Forwarding-Not-Possible            N s1ap.extension id-Data-Forwarding-Not-Possible
 TimeSynchronisationInfo                 N s1ap.extension id-Time-Synchronisation-Info
-X2TNLConfigurationInfo                  N s1ap.extension id-x2TNLConfigurationInfo
 ENBX2ExtTLAs                            N s1ap.extension id-eNBX2ExtendedTransportLayerAddresses
 Correlation-ID                          N s1ap.extension id-Correlation-ID
 MDT-Configuration                       N s1ap.extension id-MDTConfiguration
 Time-UE-StayedInCell-EnhancedGranularity N s1ap.extension id-Time-UE-StayedInCell-EnhancedGranularity
-Cause                                   N s1ap.extension id-HO-Cause
 M3Configuration                         N s1ap.extension id-M3Configuration
 M4Configuration                         N s1ap.extension id-M4Configuration
 M5Configuration                         N s1ap.extension id-M5Configuration
@@ -2146,7 +2178,6 @@ ServiceType                             N s1ap.extension id-serviceType
 BluetoothMeasurementConfiguration       N s1ap.extension id-BluetoothMeasurementConfiguration
 WLANMeasurementConfiguration            N s1ap.extension id-WLANMeasurementConfiguration
 NRrestrictionin5GS                      N s1ap.extension id-NRrestrictionin5GS
-PLMNidentity                            N s1ap.extension id-LastNG-RANPLMNIdentity
 PSCellInformation                       N s1ap.extension id-PSCellInformation
 IMSvoiceEPSfallbackfrom5G               N s1ap.extension id-IMSvoiceEPSfallbackfrom5G
 RequestTypeAdditionalInfo               N s1ap.extension id-TimeSinceSecondaryNodeRelease
@@ -2158,6 +2189,64 @@ NB-IoT-RLF-Report-Container             N s1ap.extension id-NB-IoT-RLF-Report-Co
 MDT-ConfigurationNR                     N s1ap.extension id-MDTConfigurationNR
 DAPSRequestInfo                         N s1ap.extension id-DAPSRequestInfo
 DAPSResponseInfoList                    N s1ap.extension id-DAPSResponseInfoList
+GroupIdentity N s1ap.ies id-GroupIdentity  
+MME-Group-S1AP-ID N s1ap.ies id-MME-Group-S1AP-ID  
+CallPriority N s1ap.ies id-CallPriority  
+CallSequence N s1ap.ies id-CallSequence  
+GroupAggregateMaximumBitrate N s1ap.ies id-GroupAggregateMaximumBitrate  
+TE-RABToBeSetupListGroupCtxtSUReq N s1ap.extension id-TE-RABToBeSetupListGroupCtxtSUReq   
+TE-RABToBeSetupItemGroupCtxtSUReq N s1ap.ies id-TE-RABToBeSetupItemGroupCtxtSUReq  
+GroupCallAreaGroupCtxtSUReq N s1ap.ies id-GroupCallAreaGroupCtxtSUReq  
+GroupCallSecurityInformation N s1ap.ies id-GroupCallSecurityInformation  
+eNB-Group-S1AP-ID N s1ap.ies id-eNB-Group-S1AP-ID   
+TE-RABSetupListGroupCtxtSURes N s1ap.ies id-TE-RABSetupListGroupCtxtSURes  
+TE-RABSetupItemGroupCtxtSURes N s1ap.ies id-TE-RABSetupItemGroupCtxtSURes  
+TE-RABFailedToSetupListGroupCtxtSURes N s1ap.ies id-TE-RABFailedToSetupListGroupCtxtSURes  
+GroupCallAreaGroupCtxtModReq N s1ap.ies id-GroupCallAreaGroupCtxtModReq  
+TAIListItemGroupServiceArea N s1ap.ies id-TAIListItemGroupServiceArea  
+CellListItemGroupServiceArea N s1ap.ies id-CellListItemGroupServiceArea  
+Group-S1AP-IDs N s1ap.ies id-Group-S1AP-IDs  
+ListOfTargetTAIsTrunkingIndividualPaging N s1ap.ies id-ListOfTargetTAIsTrunkingIndividualPaging  
+ListOfTargetTAIsItemTrunkingIndividualPaging N s1ap.ies id-ListOfTargetTAIsItemTrunkingIndividualPaging  
+NAS-PDUType N s1ap.ies id-NAS-PDUType  
+GroupResetType N s1ap.ies id-GroupResetType  
+Group-associatedLogicalS1-ConnectionItemGroupReset N s1ap.ies id-Group-associatedLogicalS1-ConnectionItemGroupReset  
+Group-associatedLogicalS1-ConnectionListGroupResetAck N s1ap.ies id-Group-associatedLogicalS1-ConnectionListGroupResetAck  
+Group-associatedLogicalS1-ConnectionItemGroupResetAck N s1ap.ies id-Group-associatedLogicalS1-ConnectionItemGroupResetAck  
+TE-RABToBeSetupListGroupBearerSUReq N s1ap.ies id-TE-RABToBeSetupListGroupBearerSUReq  
+TE-RABToBeSetupItemGroupBearerSUReq N s1ap.ies id-TE-RABToBeSetupItemGroupBearerSUReq  
+MessageServiceArea N s1ap.ies id-MessageServiceArea  
+TE-RABSetupListGroupBearerSURes N s1ap.ies id-TE-RABSetupListGroupBearerSURes  
+TE-RABSetupItemGroupBearerSURes N s1ap.ies id-TE-RABSetupItemGroupBearerSURes  
+TE-RABFailedToSetupListGroupBearerSURes N s1ap.ies id-TE-RABFailedToSetupListGroupBearerSURes  
+TE-RABToBeModifiedListGroupBearerModReq N s1ap.ies id-TE-RABToBeModifiedListGroupBearerModReq  
+TE-RABToBeModifiedItemGroupBearerModReq N s1ap.ies id-TE-RABToBeModifiedItemGroupBearerModReq  
+TE-RABModifyListGroupBearerModRes N s1ap.ies id-TE-RABModifyListGroupBearerModRes  
+TE-RABModifyItemGroupBearerModRes N s1ap.ies id-TE-RABModifyItemGroupBearerModRes  
+TE-RABFailedToModifyListGroupBearerModRes N s1ap.ies id-TE-RABFailedToModifyListGroupBearerModRes  
+TE-RABToBeReleasedListGroupBearerRelCmd N s1ap.ies id-TE-RABToBeReleasedListGroupBearerRelCmd  
+TE-RABToBeReleasedItemGroupBearerRelCmd N s1ap.ies id-TE-RABToBeReleasedItemGroupBearerRelCmd  
+TE-RABReleaseListGroupBearerRelRes N s1ap.ies id-TE-RABReleaseListGroupBearerRelRes  
+TE-RABReleaseItemGroupBearerRelRes N s1ap.ies id-TE-RABReleaseItemGroupBearerRelRes  
+TE-RABFailedToReleaseListGroupBearerRelRes N s1ap.ies id-TE-RABFailedToReleaseListGroupBearerRelRes  
+TE-RABReleasedListGroupBearerRelInd N s1ap.ies id-TE-RABReleasedListGroupBearerRelInd  
+TrunkingUserIndication N s1ap.ies id-TrunkingUserIndication  
+PLMNIdentity N s1ap.ies id-PLMNIdentity  
+TargetE-UTRAN-CGI N s1ap.ies id-TargetE-UTRAN-CGI  
+TE-RABItem N s1ap.ies id-TE-RABItem  
+TargeteNB-List N s1ap.ies id-TargeteNB-List  
+TargeteNB-Item N s1ap.ies id-TargeteNB-Item  
+SourceeNB-List N s1ap.ies id-SourceeNB-List  
+NeedResponse N s1ap.ies id-NeedResponse  
+GroupConfigurationContainer N s1ap.ies id-GroupConfigurationContainer  
+GroupConfigurationContainerItem N s1ap.ies id-GroupConfigurationContainerItem  
+AddModGroupCallConfigurationItem N s1ap.ies id-AddModGroupCallConfigurationItem  
+ReleaseGroupCallConfigurationItem N s1ap.ies id-ReleaseGroupCallConfigurationItem  
+AMROverPDCPCapablityIndicator N s1ap.ies id-AMROverPDCPCapablityIndicator  
+SourceeNB-Item N s1ap.ies id-SourceeNB-Item  
+AMROverPDCPIndicator N s1ap.ies id-AMROverPDCPIndicator  
+
+
 
 #S1AP-ELEMENTARY-PROCEDURE
 HandoverRequired                        N s1ap.proc.imsg id-HandoverPreparation
@@ -2324,7 +2413,31 @@ HandoverSuccess                         N s1ap.proc.imsg id-HandoverSuccess
 ENBEarlyStatusTransfer                  N s1ap.proc.imsg id-eNBEarlyStatusTransfer
 
 MMEEarlyStatusTransfer                  N s1ap.proc.imsg id-MMEEarlyStatusTransfer
-
+GroupCallContextSetupRequest N s1ap.proc.imsg id-GroupCallContextSetup
+GroupCallContextSetupResponse N s1ap.proc.sout id-GroupCallContextSetup
+GroupCallContextSetupFailure N s1ap.proc.sout id-GroupCallContextSetup
+GroupCallContextModificationRequest N s1ap.proc.imsg id-GroupCallContextModification
+GroupCallContextModificationResponse N s1ap.proc.sout id-GroupCallContextModification
+GroupCallContextReleaseCommand N s1ap.proc.imsg id-GroupCallContextRelease
+GroupCallContextReleaseComplete N s1ap.proc.sout id-GroupCallContextRelease
+GroupTE-RABSetupRequest N s1ap.proc.imsg id-GroupTE-RABSetup
+GroupTE-RABSetupResponse N s1ap.proc.sout id-GroupTE-RABSetup
+GroupTE-RABModifyRequest N s1ap.proc.imsg id-GroupTE-RABModify
+GroupTE-RABModifyResponse N s1ap.proc.sout id-GroupTE-RABModify
+GroupTE-RABReleaseCommand N s1ap.proc.imsg id-GroupTE-RABRelease
+GroupTE-RABReleaseResponse N s1ap.proc.sout id-GroupTE-RABRelease
+GroupTE-RABReleaseIndication N s1ap.proc.imsg id-GroupTE-RABReleaseIndication
+GroupCallContextReleaseIndication N s1ap.proc.sout id-GroupCallContextReleaseIndication
+InstantGroupCallConfigNotify N s1ap.proc.imsg id-InstantGroupCallConfigNotify
+GroupCallContextExpansion N s1ap.proc.imsg id-GroupCallContextExpansion
+TrunkingIndividualPaging N s1ap.proc.imsg id-TrunkingIndividualPaging
+GroupDownlinkNASTransport N s1ap.proc.sout id-GroupDownlinkNASTransport
+TrunkingErrorIndication N s1ap.proc.imsg id-TrunkingErrorIndication
+GroupReset N s1ap.proc.imsg id-GroupReset
+TrunkingMessageTransport N s1ap.proc.imsg id-TrunkingMessageTransport
+TrunkingServingCellUpdat1947GeIndication N s1ap.proc.imsg id-TrunkingServingCellUpdateIndication
+eNBGroupCallConfigurationTransfer N s1ap.proc.imsg id-eNBGroupCallConfigurationTransfer
+MMEGroupCallConfigurationTransfer N s1ap.proc.imsg id-MMEGroupCallConfigurationTransfer
 
 #.FN_HDR HandoverRequired
   col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "HandoverRequired");

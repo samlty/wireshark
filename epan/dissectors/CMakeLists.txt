@@ -96,9 +96,9 @@ set(CLEAN_ASN1_DISSECTOR_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-disp.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-dop.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-dsp.c
-	${CMAKE_CURRENT_SOURCE_DIR}/packet-e1ap.c
+	# ${CMAKE_CURRENT_SOURCE_DIR}/packet-e1ap.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-ess.c
-	${CMAKE_CURRENT_SOURCE_DIR}/packet-f1ap.c
+	# ${CMAKE_CURRENT_SOURCE_DIR}/packet-f1ap.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-ftam.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-glow.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-goose.c
@@ -140,7 +140,7 @@ set(CLEAN_ASN1_DISSECTOR_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-msgpack.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-mudurl.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-nbap.c
-	${CMAKE_CURRENT_SOURCE_DIR}/packet-ngap.c
+	# ${CMAKE_CURRENT_SOURCE_DIR}/packet-ngap.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-nist-csor.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-novell_pkis.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-nrppa.c
@@ -190,12 +190,12 @@ set(CLEAN_ASN1_DISSECTOR_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-ulp.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-wireguard.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-wlancertextn.c
-	${CMAKE_CURRENT_SOURCE_DIR}/packet-x2ap.c
+	# ${CMAKE_CURRENT_SOURCE_DIR}/packet-x2ap.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-x509af.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-x509ce.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-x509if.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-x509sat.c
-	${CMAKE_CURRENT_SOURCE_DIR}/packet-xnap.c
+	# ${CMAKE_CURRENT_SOURCE_DIR}/packet-xnap.c
 )
 
 set(DIRTY_ASN1_DISSECTOR_SRC

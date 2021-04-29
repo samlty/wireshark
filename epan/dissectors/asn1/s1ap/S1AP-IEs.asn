@@ -30,7 +30,7 @@ id-ReleaseGroupCallConfigurationItem,
 id-SourceeNB-Item,
 id-TargeteNB-Item,
 maxNrOfCSGs,
-maxNrOfE-RABs,
+maxnoofE-RABs,
 maxNrOfTE-RABs,
 maxNrOfErrors,
 maxnoofBPLMNs,
@@ -114,7 +114,7 @@ enabled,
 
 -- B
 
-Bearers-SubjectToStatusTransferList ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { { Bearers-SubjectToStatusTransfer-ItemIEs } }
+Bearers-SubjectToStatusTransferList ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { { Bearers-SubjectToStatusTransfer-ItemIEs } }
 
 Bearers-SubjectToStatusTransfer-ItemIEs S1AP-PROTOCOL-IES ::= {
 	{ ID id-Bearers-SubjectToStatusTransfer-Item	CRITICALITY ignore	TYPE Bearers-SubjectToStatusTransfer-Item 	PRESENCE mandatory	},
@@ -579,7 +579,7 @@ EventType	::= ENUMERATED {
 
 E-RAB-ID		::= INTEGER (0..15, ...)
 
-E-RABInformationList	::= SEQUENCE (SIZE (1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { { E-RABInformationListIEs } }
+E-RABInformationList	::= SEQUENCE (SIZE (1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { { E-RABInformationListIEs } }
 
 E-RABInformationListIEs S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABInformationListItem			CRITICALITY ignore	TYPE E-RABInformationListItem			PRESENCE mandatory	},
@@ -597,7 +597,7 @@ E-RABInformationListItem-ExtIEs S1AP-PROTOCOL-EXTENSION ::= {
 	...
 }
 
-E-RABList ::= SEQUENCE (SIZE(1.. maxNrOfE-RABs)) OF ProtocolIE-SingleContainer { {E-RABItemIEs} }
+E-RABList ::= SEQUENCE (SIZE(1.. maxnoofE-RABs)) OF ProtocolIE-SingleContainer { {E-RABItemIEs} }
 
 E-RABItemIEs 	S1AP-PROTOCOL-IES ::= {
 	{ ID id-E-RABItem	 CRITICALITY ignore 	TYPE E-RABItem 	PRESENCE mandatory },

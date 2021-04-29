@@ -107,7 +107,7 @@ maxProtocolIEs						INTEGER ::= 65535
 -- **************************************************************
 
 maxNrOfCSGs INTEGER ::= 256
-maxNrOfE-RABs INTEGER ::= 256
+maxnoofE-RABs INTEGER ::= 256
 maxNrOfTE-RABs INTEGER ::= 8
 maxnoofTAIs INTEGER ::= 256
 maxnoofTACs INTEGER ::= 256

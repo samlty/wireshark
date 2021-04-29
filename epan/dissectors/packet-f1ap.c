@@ -7887,7 +7887,7 @@ dissect_f1ap_ProtectedEUTRAResourceIndication(tvbuff_t *tvb _U_, int offset _U_,
 
   if (param_tvb) {
     proto_tree *subtree = proto_item_add_subtree(actx->created_item, ett_f1ap_ProtectedEUTRAResourceIndication);
-    dissect_x2ap_ProtectedEUTRAResourceIndication_PDU(param_tvb, actx->pinfo, subtree, NULL);
+    // dissect_x2ap_ProtectedEUTRAResourceIndication_PDU(param_tvb, actx->pinfo, subtree, NULL);
   }
 
 
@@ -8208,7 +8208,7 @@ dissect_f1ap_EUTRA_NR_CellResourceCoordinationReq_Container(tvbuff_t *tvb _U_, i
 
   if (param_tvb) {
     proto_tree *subtree = proto_item_add_subtree(actx->created_item, ett_f1ap_EUTRA_NR_CellResourceCoordinationReq_Container);
-    dissect_x2ap_EUTRANRCellResourceCoordinationRequest_PDU(param_tvb, actx->pinfo, subtree, NULL);
+    // dissect_x2ap_EUTRANRCellResourceCoordinationRequest_PDU(param_tvb, actx->pinfo, subtree, NULL);
   }
 
 
@@ -8227,7 +8227,7 @@ dissect_f1ap_EUTRA_NR_CellResourceCoordinationReqAck_Container(tvbuff_t *tvb _U_
 
   if (param_tvb) {
     proto_tree *subtree = proto_item_add_subtree(actx->created_item, ett_f1ap_EUTRA_NR_CellResourceCoordinationReqAck_Container);
-    dissect_x2ap_EUTRANRCellResourceCoordinationResponse_PDU(param_tvb, actx->pinfo, subtree, NULL);
+    // dissect_x2ap_EUTRANRCellResourceCoordinationResponse_PDU(param_tvb, actx->pinfo, subtree, NULL);
   }
 
 
@@ -11296,10 +11296,10 @@ dissect_f1ap_ResourceCoordinationTransferContainer(tvbuff_t *tvb _U_, int offset
       switch (f1ap_data->procedure_code) {
       case id_UEContextSetup:
       case id_UEContextModification:
-        dissect_x2ap_MeNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
+        // dissect_x2ap_MeNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
         break;
       case id_UEContextModificationRequired:
-        dissect_x2ap_SgNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
+        // dissect_x2ap_SgNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
         break;
       default:
         break;
@@ -11309,10 +11309,10 @@ dissect_f1ap_ResourceCoordinationTransferContainer(tvbuff_t *tvb _U_, int offset
       switch (f1ap_data->procedure_code) {
       case id_UEContextSetup:
       case id_UEContextModification:
-        dissect_x2ap_SgNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
+        // dissect_x2ap_SgNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
         break;
       case id_UEContextModificationRequired:
-        dissect_x2ap_MeNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
+        // dissect_x2ap_MeNBResourceCoordinationInformation_PDU(param_tvb, actx->pinfo, subtree, NULL);
         break;
       default:
         break;
