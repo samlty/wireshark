@@ -2415,7 +2415,7 @@ ENBEarlyStatusTransfer                  N s1ap.proc.imsg id-eNBEarlyStatusTransf
 MMEEarlyStatusTransfer                  N s1ap.proc.imsg id-MMEEarlyStatusTransfer
 GroupCallContextSetupRequest N s1ap.proc.imsg id-GroupCallContextSetup
 GroupCallContextSetupResponse N s1ap.proc.sout id-GroupCallContextSetup
-GroupCallContextSetupFailure N s1ap.proc.sout id-GroupCallContextSetup
+GroupCallContextSetupFailure N s1ap.proc.uout id-GroupCallContextSetup
 GroupCallContextModificationRequest N s1ap.proc.imsg id-GroupCallContextModification
 GroupCallContextModificationResponse N s1ap.proc.sout id-GroupCallContextModification
 GroupCallContextReleaseCommand N s1ap.proc.imsg id-GroupCallContextRelease
@@ -2434,6 +2434,7 @@ TrunkingIndividualPaging N s1ap.proc.imsg id-TrunkingIndividualPaging
 GroupDownlinkNASTransport N s1ap.proc.sout id-GroupDownlinkNASTransport
 TrunkingErrorIndication N s1ap.proc.imsg id-TrunkingErrorIndication
 GroupReset N s1ap.proc.imsg id-GroupReset
+GroupResetAcknowledge N s1ap.proc.sout id-GroupReset
 TrunkingMessageTransport N s1ap.proc.imsg id-TrunkingMessageTransport
 TrunkingServingCellUpdat1947GeIndication N s1ap.proc.imsg id-TrunkingServingCellUpdateIndication
 eNBGroupCallConfigurationTransfer N s1ap.proc.imsg id-eNBGroupCallConfigurationTransfer
@@ -2635,6 +2636,60 @@ MMEGroupCallConfigurationTransfer N s1ap.proc.imsg id-MMEGroupCallConfigurationT
   col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "ENBEarlyStatusTransfer");
 #.FN_HDR MMEEarlyStatusTransfer
   col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "MMEEarlyStatusTransfer");
+
+#.FN_HDR GroupCallContextSetupRequest
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextSetupRequest");
+#.FN_HDR GroupCallContextSetupResponse
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextSetupResponse");
+#.FN_HDR GroupCallContextSetupFailure
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextSetupFailure");
+#.FN_HDR GroupCallContextModificationRequest
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextModificationRequest");
+#.FN_HDR GroupCallContextModificationResponse
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextModificationResponse");
+#.FN_HDR GroupCallContextReleaseCommand
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextReleaseCommand");
+#.FN_HDR GroupCallContextReleaseComplete
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextReleaseComplete");
+#.FN_HDR GroupTE-RABSetupRequest
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupTE-RABSetupRequest");
+#.FN_HDR GroupTE-RABSetupResponse
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupTE-RABSetupResponse");
+#.FN_HDR GroupTE-RABModifyRequest
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupTE-RABModifyRequest");
+#.FN_HDR GroupTE-RABModifyResponse
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupTE-RABModifyResponse");
+#.FN_HDR GroupTE-RABReleaseCommand
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupTE-RABReleaseCommand");
+#.FN_HDR GroupTE-RABReleaseResponse
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupTE-RABReleaseResponse");
+#.FN_HDR GroupTE-RABReleaseIndication
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupTE-RABReleaseIndication");
+#.FN_HDR GroupCallContextReleaseIndication
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextReleaseIndication");
+#.FN_HDR InstantGroupCallConfigNotify
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "InstantGroupCallConfigNotify");
+#.FN_HDR GroupCallContextExpansion
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupCallContextExpansion");
+#.FN_HDR TrunkingIndividualPaging
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "TrunkingIndividualPaging");
+#.FN_HDR GroupDownlinkNASTransport
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupDownlinkNASTransport");
+#.FN_HDR TrunkingErrorIndication
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "TrunkingErrorIndication");
+#.FN_HDR GroupReset
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupReset");
+#.FN_HDR GroupResetAcknowledge
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "GroupResetAcknowledge");
+#.FN_HDR TrunkingMessageTransport
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "TrunkingMessageTransport");
+#.FN_HDR TrunkingServingCellUpdat1947GeIndication
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "TrunkingServingCellUpdat1947GeIndication");
+#.FN_HDR eNBGroupCallConfigurationTransfer
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "eNBGroupCallConfigurationTransfer");
+#.FN_HDR MMEGroupCallConfigurationTransfer
+col_append_sep_str(actx->pinfo->cinfo, COL_INFO, NULL, "MMEGroupCallConfigurationTransfer");
+
 #.END
 
 # Whenever a Cause appears, look up the reason and show it in the Info column
