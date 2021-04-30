@@ -11576,7 +11576,7 @@ proto_reg_handoff_s1ap(void)
   dissector_add_uint("s1ap.ies", id_CallPriority, create_dissector_handle(dissect_CallPriority_PDU, proto_s1ap));
   dissector_add_uint("s1ap.ies", id_CallSequence, create_dissector_handle(dissect_CallSequence_PDU, proto_s1ap));
   dissector_add_uint("s1ap.ies", id_GroupAggregateMaximumBitrate, create_dissector_handle(dissect_GroupAggregateMaximumBitrate_PDU, proto_s1ap));
-  dissector_add_uint("s1ap.extension", id_TE_RABToBeSetupListGroupCtxtSUReq, create_dissector_handle(dissect_TE_RABToBeSetupListGroupCtxtSUReq_PDU, proto_s1ap));
+  dissector_add_uint("s1ap.ies", id_TE_RABToBeSetupListGroupCtxtSUReq, create_dissector_handle(dissect_TE_RABToBeSetupListGroupCtxtSUReq_PDU, proto_s1ap));
   dissector_add_uint("s1ap.ies", id_TE_RABToBeSetupItemGroupCtxtSUReq, create_dissector_handle(dissect_TE_RABToBeSetupItemGroupCtxtSUReq_PDU, proto_s1ap));
   dissector_add_uint("s1ap.ies", id_TE_RABSetupListGroupCtxtSURes, create_dissector_handle(dissect_TE_RABSetupListGroupCtxtSURes_PDU, proto_s1ap));
   dissector_add_uint("s1ap.ies", id_TE_RABSetupItemGroupCtxtSURes, create_dissector_handle(dissect_TE_RABSetupItemGroupCtxtSURes_PDU, proto_s1ap));

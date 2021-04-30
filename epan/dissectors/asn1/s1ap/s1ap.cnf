@@ -2192,7 +2192,7 @@ MME-Group-S1AP-ID N s1ap.ies id-MME-Group-S1AP-ID
 CallPriority N s1ap.ies id-CallPriority  
 CallSequence N s1ap.ies id-CallSequence  
 GroupAggregateMaximumBitrate N s1ap.ies id-GroupAggregateMaximumBitrate  
-TE-RABToBeSetupListGroupCtxtSUReq N s1ap.extension id-TE-RABToBeSetupListGroupCtxtSUReq   
+TE-RABToBeSetupListGroupCtxtSUReq N s1ap.ies id-TE-RABToBeSetupListGroupCtxtSUReq   
 TE-RABToBeSetupItemGroupCtxtSUReq N s1ap.ies id-TE-RABToBeSetupItemGroupCtxtSUReq  
 GroupCallAreaGroupCtxtSUReq N s1ap.ies id-GroupCallAreaGroupCtxtSUReq  
 GroupCallSecurityInformation N s1ap.ies id-GroupCallSecurityInformation  
