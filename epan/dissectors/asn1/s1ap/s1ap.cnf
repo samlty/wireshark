@@ -1684,7 +1684,6 @@ id-M3Configuration                                  ProtocolIE-ID
 id-M4Configuration                                  ProtocolIE-ID
 id-M5Configuration                                  ProtocolIE-ID
 id-MDT-Location-Info                                ProtocolIE-ID
-id-MobilityInformation                              ProtocolIE-ID
 id-Tunnel-Information-for-BBF                       ProtocolIE-ID
 id-ManagementBasedMDTPLMNList                       ProtocolIE-ID
 id-SignallingBasedMDTPLMNList                       ProtocolIE-ID
@@ -2141,7 +2140,6 @@ M3Configuration                         N s1ap.extension id-M3Configuration
 M4Configuration                         N s1ap.extension id-M4Configuration
 M5Configuration                         N s1ap.extension id-M5Configuration
 MDT-Location-Info                       N s1ap.extension id-MDT-Location-Info
-MobilityInformation                     N s1ap.extension id-MobilityInformation
 MDTPLMNList                             N s1ap.extension id-SignallingBasedMDTPLMNList
 COUNTValueExtended                      N s1ap.extension id-ULCOUNTValueExtended
 COUNTValueExtended                      N s1ap.extension id-DLCOUNTValueExtended
@@ -2429,14 +2427,16 @@ GroupTE-RABReleaseResponse N s1ap.proc.sout id-GroupTE-RABRelease
 GroupTE-RABReleaseIndication N s1ap.proc.imsg id-GroupTE-RABReleaseIndication
 GroupCallContextReleaseIndication N s1ap.proc.sout id-GroupCallContextReleaseIndication
 InstantGroupCallConfigNotify N s1ap.proc.imsg id-InstantGroupCallConfigNotify
-GroupCallContextExpansion N s1ap.proc.imsg id-GroupCallContextExpansion
+GroupCallContextExpansionRequest N s1ap.proc.imsg id-GroupCallContextExpansion
+GroupCallContextExpansionAccept N s1ap.proc.sout id-GroupCallContextExpansion
+GroupCallContextExpansionReject N s1ap.proc.uout id-GroupCallContextExpansion
 TrunkingIndividualPaging N s1ap.proc.imsg id-TrunkingIndividualPaging
-GroupDownlinkNASTransport N s1ap.proc.sout id-GroupDownlinkNASTransport
+GroupDownlinkNASTransport N s1ap.proc.imsg id-GroupDownlinkNASTransport
 TrunkingErrorIndication N s1ap.proc.imsg id-TrunkingErrorIndication
 GroupReset N s1ap.proc.imsg id-GroupReset
 GroupResetAcknowledge N s1ap.proc.sout id-GroupReset
 TrunkingMessageTransport N s1ap.proc.imsg id-TrunkingMessageTransport
-TrunkingServingCellUpdat1947GeIndication N s1ap.proc.imsg id-TrunkingServingCellUpdateIndication
+TrunkingServingCellUpdateIndication N s1ap.proc.imsg id-TrunkingServingCellUpdateIndication
 eNBGroupCallConfigurationTransfer N s1ap.proc.imsg id-eNBGroupCallConfigurationTransfer
 MMEGroupCallConfigurationTransfer N s1ap.proc.imsg id-MMEGroupCallConfigurationTransfer
 

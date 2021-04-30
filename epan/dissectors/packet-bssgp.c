@@ -176,7 +176,7 @@ static int hf_bssgp_redir_complete_outcome = -1;
 static int hf_bssgp_redir_indiction_reroute_reject_cause = -1;
 static int hf_bssgp_unconfim_send_state_var = -1;
 static int hf_bssgp_Global_ENB_ID_PDU = -1;
-static int hf_bssgp_SONtransferRequestContainer_PDU = -1;
+// static int hf_bssgp_SONtransferRequestContainer_PDU = -1;
 static int hf_bssgp_plmn_id = -1;
 static int hf_bssgp_num_pfc = -1;
 static int hf_bssgp_llc_data = -1;
@@ -1799,7 +1799,7 @@ de_bssgp_ran_information_request_app_cont(tvbuff_t *tvb, proto_tree *tree, packe
             /* convert to bit offset */
             bit_offset = curr_offset<<3;
             bit_offset = dissect_s1ap_Global_ENB_ID(tvb, bit_offset, &asn1_ctx, tree, hf_bssgp_Global_ENB_ID_PDU);
-            /*bit_offset = */dissect_s1ap_SONtransferRequestContainer(tvb, bit_offset, &asn1_ctx, tree, hf_bssgp_SONtransferRequestContainer_PDU);
+            // /*bit_offset = */dissect_s1ap_SONtransferRequestContainer(tvb, bit_offset, &asn1_ctx, tree, hf_bssgp_SONtransferRequestContainer_PDU);
             curr_offset += 7; curr_offset >>= 3;
             }
             break;
@@ -2082,7 +2082,7 @@ de_bssgp_ran_app_error_cont(tvbuff_t *tvb, proto_tree *tree, packet_info *pinfo,
              * The "SON Transfer Cause" field is encoded as the SON Transfer Cause IE as defined in 3GPP TS 36.413
              */
             new_tvb = tvb_new_subset_remaining(tvb, curr_offset);
-            curr_offset = curr_offset + dissect_s1ap_SONtransferCause_PDU(new_tvb, pinfo, tree, NULL);
+            // curr_offset = curr_offset + dissect_s1ap_SONtransferCause_PDU(new_tvb, pinfo, tree, NULL);
             /* Erroneous Application Container including IEI and LI */
             proto_tree_add_expert(tree, pinfo, &ei_bssgp_erroneous_app_container, tvb, curr_offset, len-(curr_offset-offset));
             break;
@@ -3243,7 +3243,7 @@ de_bssgp_son_transfer_app_id(tvbuff_t *tvb, proto_tree *tree, packet_info *pinfo
      */
     if(len > 0){
         next_tvb = tvb_new_subset_length(tvb, offset, len);
-        dissect_s1ap_SONtransferApplicationIdentity_PDU(next_tvb, pinfo, tree, NULL);
+        // dissect_s1ap_SONtransferApplicationIdentity_PDU(next_tvb, pinfo, tree, NULL);
     }
 
     return(len);
@@ -7393,10 +7393,10 @@ proto_register_bssgp(void)
             FT_NONE, BASE_NONE, NULL, 0,
             NULL, HFILL }
         },
-        { &hf_bssgp_SONtransferRequestContainer_PDU,
-          { "SONtransferRequestContainer", "bssgp.SONtransferRequestContainer",
-            FT_UINT32, BASE_DEC, VALS(s1ap_SONtransferRequestContainer_vals), 0,
-            NULL, HFILL }},
+        // { &hf_bssgp_SONtransferRequestContainer_PDU,
+        //   { "SONtransferRequestContainer", "bssgp.SONtransferRequestContainer",
+        //     FT_UINT32, BASE_DEC, VALS(s1ap_SONtransferRequestContainer_vals), 0,
+        //     NULL, HFILL }},
 
         { &hf_bssgp_plmn_id,
           { "PLMN ID", "bssgp.plmn_id",

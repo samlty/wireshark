@@ -752,7 +752,7 @@ set(DISSECTOR_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-brdwlk.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-brp.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-bssap.c
-	# ${CMAKE_CURRENT_SOURCE_DIR}/packet-bssgp.c
+	${CMAKE_CURRENT_SOURCE_DIR}/packet-bssgp.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-bt-dht.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-bt-utp.c
 	${CMAKE_CURRENT_SOURCE_DIR}/packet-bt3ds.c
